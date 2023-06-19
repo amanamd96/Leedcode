@@ -47,22 +47,28 @@ class Solution
         int ans [] =  new int[n];
         
         for(int i=0;i<n;i++){
-            while(st.size()>0 && price[st.peek()]<=price[i]){
-                st.pop();
+            if(st.isEmpty()){
+                ans[i] = 1;
+            }else{
+               
+                while(!st.isEmpty() && price[st.peek()] <= price[i]){
+                    
+                    st.pop();
+                }
+                if(st.isEmpty()){
+                     ans[i] = i+1;
+                }else{
+                    ans[i] = i - st.peek();
+                }
+                
+                
             }
-            if(st.size()==0)
-             ans[i] = -1;
-            else
-             ans[i] = st.peek();
-            
             st.push(i);
         }
         
-        int res [] = new int[n];
-        for(int i=0;i<n;i++){
-            res[i] = i - ans[i];
-        }
-        return res;
+        return ans;
+        
+      
     }
     
 }
